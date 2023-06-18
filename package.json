@@ -7,6 +7,10 @@
   "author": "nikko <35370166+nikkoxd@users.noreply.github.com>",
   "license": "GPL-3.0-or-later",
   "private": false,
+  "scripts": {
+    "dev": "yarn nodemon",
+    "build": "yarn tsc && node deploy-commands.js"
+  },
   "devDependencies": {
     "@types/node": "^20.3.1",
     "nodemon": "^2.0.22",
