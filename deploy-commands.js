@@ -29,10 +29,17 @@ const rest = new REST().setToken(process.env.TOKEN);
 	try {
 		console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
+		// Deploy to dev server
 		const data = await rest.put(
 			Routes.applicationGuildCommands(process.env.CLIENT, process.env.DEVSERVER),
 			{ body: commands },
 		);
+
+		// Deploy as global
+		// const data = await rest.put(
+		// 	Routes.applicationCommands(process.env.CLIENT),
+		// 	{ body: commands },
+		// );
 
 		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
 	} catch (error) {
