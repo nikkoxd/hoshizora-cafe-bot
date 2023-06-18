@@ -1,10 +1,11 @@
-import { Client, Collection, Events, Interaction } from "discord.js";
+import { Client, Collection, CommandInteraction, Events, Interaction } from "discord.js";
 import { readdirSync } from "fs";
 import path from "path";
 
 export class CommandHandler {
   constructor(client: Client) {
     client.commands = new Collection();
+    client.cooldowns = new Collection();
 
     const foldersPath = path.join(__dirname, "commands");
     const commandFolders = readdirSync(foldersPath);
@@ -32,6 +33,25 @@ export class CommandHandler {
       if (!command) {
         console.error(`No command matching ${interaction.commandName} was found.`);
         return;
+      }
+
+      if (!client.cooldowns.has(command.data.name)) {
+        client.cooldowns.set(command.data.name, new Collection());
+      }
+
+      const now = Date.now();
+      const timestamps = client.cooldowns.get(command.data.name);
+      const defaultCooldownDuration = 0;
+      const cooldownAmount = (command.cooldown ?? (defaultCooldownDuration) * 1000);
+
+      if (timestamps.has(interaction.user.id)) {
+        const expirationDate = timestamps.get(interaction.user.id) + cooldownAmount;
+
+        if (now < expirationDate) {
+          const expiredTimestamp = Math.round(expirationDate / 1000);
+          await interaction.reply({ content: `Повторное использование команды: <t:${expiredTimestamp}:R>.`, ephemeral: true });
+          return;
+        }
       }
 
       try {
