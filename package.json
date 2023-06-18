@@ -1,0 +1,18 @@
+{
+  "name": "hoshizora-cafe-bot",
+  "version": "1.0.0",
+  "description": "A Discord bot made for Hoshizora Café server",
+  "main": "dist/index.js",
+  "repository": "https://github.com/nikkoxd/hoshizora-cafe-bot.git",
+  "author": "nikko <35370166+nikkoxd@users.noreply.github.com>",
+  "license": "GPL-3.0-or-later",
+  "private": false,
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.3.1"
+  }
+}
