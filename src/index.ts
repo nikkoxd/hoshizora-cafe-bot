@@ -5,7 +5,10 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [
+  GatewayIntentBits.Guilds, 
+  GatewayIntentBits.GuildMembers
+] });
 const eventHandler = new EventHandler(client);
 const commandHandler = new CommandHandler(client);
 
